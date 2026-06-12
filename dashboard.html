@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitFlow OS V2 - Behavioral Intelligence Core</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        if (!localStorage.getItem("currentUser")) {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body class="dashboard-body">
+
+    <div class="command-center-banner">
+        <div class="banner-title-wrap">
+            <h2>TODAY'S OPERATING STATUS</h2>
+            <p>System Workspace Framework v2.0 // Predictive Core Active</p>
+        </div>
+        <div class="banner-metrics-grid">
+            <div class="banner-metric-box">
+                <span class="bm-label">Momentum Score</span>
+                <span id="sysMomentum" class="bm-value text-primary">0/100</span>
+            </div>
+            <button class="banner-metric-box" onclick="triggerManualRecovery()">
+                <span class="bm-label">Bounce-Back Recovery</span>
+                <span id="sysRecovery" class="bm-value text-success">0%</span>
+            </button>
+            <div class="banner-metric-box">
+                <span class="bm-label">Streak Risk Vector</span>
+                <span id="sysRisk" class="bm-value text-danger">Low</span>
+            </div>
+            <div class="banner-metric-box">
+                <span class="bm-label">Suggested Daily Mode</span>
+                <span id="sysMode" class="bm-value text-warning">Standard</span>
+            </div>
+        </div>
+    </div>
+
+    <header class="navbar">
+        <div class="logo">HabitFlow OS // Intelligence Suite 🧠</div>
+        <div class="xp-nav-widget" style="display: flex; align-items: center; gap: 12px; background: #f1f5f9; padding: 6px 16px; border-radius: 30px; border: 1px solid #e2e8f0;">
+            <span style="font-weight: 800; color: var(--primary); font-size: 13px;">LVL <span id="userLevel">1</span></span>
+            <div style="width: 120px; height: 8px; background: #cbd5e1; border-radius: 4px; overflow: hidden;">
+                <div id="xpProgressBar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease;"></div>
+            </div>
+            <span style="font-size: 11px; font-weight: 600; color: var(--text-muted);"><span id="currentXp">0</span> / 1000 XP</span>
+        </div>
+        <button id="logoutBtn" class="logout-button">Logout</button>
+    </header>
+
+    <div id="obstacleModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <h3>⚠️ Log Behavioral Friction</h3>
+            <p>What specific obstacle disrupted your momentum today?</p>
+            <input type="hidden" id="modalHabitIndex">
+            <input type="hidden" id="modalDayIndex">
+            <select id="skipReasonSelect">
+                <option value="Too Busy ⏳">Too Busy ⏳</option>
+                <option value="Low Energy 🪫">Low Energy 🪫</option>
+                <option value="Forgot 🧠">Forgot 🧠</option>
+                <option value="Away from Home 🚗">Away from Home 🚗</option>
+                <option value="Not Motivated 📉">Not Motivated 📉</option>
+            </select>
+            <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <button onclick="executeModalFrictionSubmission()" class="btn-primary" style="background-color: var(--danger); margin-top: 0; flex: 1;">Log Friction Point</button>
+                <button onclick="closeModal()" class="logout-button" style="flex: 1;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard-grid">
+        <section class="control-panel">
+            <div class="panel-card" style="border-left: 4px solid var(--danger);">
+                <h3>Friction Distribution Matrix</h3>
+                <div style="max-height: 140px; position: relative; margin-bottom: 8px;">
+                    <canvas id="frictionAnalyticsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="panel-card" style="border-left: 4px solid var(--success);">
+                <h3>Lifestyle Focus Portfolio</h3>
+                <div style="max-height: 140px; position: relative; margin-bottom: 8px;">
+                    <canvas id="portfolioAnalyticsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <h3>Configure Behavior Blueprint</h3>
+                <div id="blueprintFormNotification" style="display:none; padding:10px; margin-bottom:12px; border-radius:6px; font-size:12px; font-weight:600;"></div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; margin-bottom: 4px;">
+                    <label class="field-label" style="margin: 0;">Category</label>
+                    <button id="toggleCustomCategoryBtn" onclick="toggleCategoryMode()" class="logout-button" style="padding: 2px 8px; font-size: 11px; margin: 0; background: #f1f5f9;">➕ Add Custom</button>
+                </div>
+                <div id="presetCategoryWrapper">
+                    <select id="categorySelect" onchange="updateSubCategoryOptions()"></select>
+                </div>
+                <div id="customCategoryWrapper" style="display: none;">
+                    <input type="text" id="customCategoryInput" placeholder="e.g., Mindset, Cooking 🍳">
+                </div>
+
+                <label class="field-label" style="margin-top: 12px; margin-bottom: 4px;">Activity Target</label>
+                <div id="presetActivityWrapper">
+                    <select id="subCategorySelect"></select>
+                </div>
+                <div id="customActivityWrapper" style="display: none;">
+                    <input type="text" id="customActivityInput" placeholder="e.g., Read 20 Pages, Bake Bread">
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
+                <label class="field-label" style="color: #16a34a;">🟢 Tiny Target (Baseline / Low Energy)</label>
+                <input type="text" id="tierTinyInput" placeholder="e.g., Read 1 page">
+
+                <label class="field-label" style="color: var(--primary);">🔵 Standard Target (Ideal Execution)</label>
+                <input type="text" id="tierStandardInput" placeholder="e.g., Read 10 pages">
+
+                <label class="field-label" style="color: #b45309;">🟠 Advanced Target (High Momentum)</label>
+                <input type="text" id="tierAdvancedInput" placeholder="e.g., Read 25 pages">
+
+                <button onclick="addHabit()" class="btn-primary">Deploy Core System</button>
+            </div>
+        </section>
+
+        <section class="habit-stream">
+            <div class="panel-card" style="margin-bottom: 24px; border-top: 4px solid var(--primary); position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3>📅 Daily Time-Blocking Sync</h3>
+                        <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0 0 0;">Map out exactly when activities execute. Drag habit cards from your active list below directly into hour cells.</p>
+                    </div>
+                    <div id="liveSystemClock" style="background: #0f172a; color: #10b981; font-family: monospace; font-size: 12px; padding: 6px 14px; border-radius: 6px; border: 1px solid #334155; font-weight: 700; text-align: right; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);">
+                        LOADING ENGINE...
+                    </div>
+                </div>
+
+                <div id="predictiveWarningConsole" style="display: none; background: #fffbeb; border: 1px solid #fef3c7; padding: 10px 16px; border-radius: 8px; font-size: 12px; color: #b45309; font-weight: 600; margin-bottom: 14px;"></div>
+                
+                <div class="time-blocker-row" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;">
+                    <div class="time-slot" ondragover="allowDrop(event)" ondrop="handleTimeBlockDrop(event, 'zone-0800')"><strong>08:00 AM</strong><div class="slot-dropzone" id="zone-0800">— Empty —</div></div>
+                    <div class="time-slot" ondragover="allowDrop(event)" ondrop="handleTimeBlockDrop(event, 'zone-1200')"><strong>12:00 PM</strong><div class="slot-dropzone" id="zone-1200">— Empty —</div></div>
+                    <div class="time-slot" ondragover="allowDrop(event)" ondrop="handleTimeBlockDrop(event, 'zone-1600')"><strong>04:00 PM</strong><div class="slot-dropzone" id="zone-1600">— Empty —</div></div>
+                    <div class="time-slot" ondragover="allowDrop(event)" ondrop="handleTimeBlockDrop(event, 'zone-2000')"><strong>08:00 PM</strong><div class="slot-dropzone" id="zone-2000">— Empty —</div></div>
+                </div>
+            </div>
+
+            <h2>Monthly Systems Flow <span style="font-size:11px; color:var(--text-muted); font-weight: normal;">(Tap nodes repeatedly to cycle status flags)</span></h2>
+            <ul id="habitList" style="display: flex; flex-direction: column; gap: 24px; padding: 0; list-style: none; margin-top: 16px;"></ul>
+
+            <div class="panel-card" style="margin-top: 32px; border-left: 4px solid var(--success); background-color: #f8fafc;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h3 style="margin: 0;">📋 Monthly Behavioral Intelligence Report</h3>
+                    <button onclick="generateWeeklyReview()" class="logout-button" style="background: #fff; margin: 0;">Compile Report</button>
+                </div>
+                <div id="weeklyReviewContent" style="font-size: 13px; line-height: 1.6;">
+                    Click "Compile Report" to calculate comprehensive execution metrics and keystone habit correlations.
+                </div>
+            </div>
+
+            <div class="panel-card" style="margin-top: 24px; border-left: 4px solid #8b5cf6;">
+                <h3>🤖 Ask HabitFlow AI Behavioral Consultant</h3>
+                <div style="display: flex; gap: 12px; margin-top: 14px;">
+                    <select id="aiQuerySelect" style="margin: 0; flex: 1;">
+                        <option value="obstacles">Predict my upcoming 30-day performance forecast map.</option>
+                        <option value="keystone">Identify my system's Keystone Habit & behavioral dependencies.</option>
+                        <option value="coach">Provide a tactical recovery plan to maximize my Bounce-Back score.</option>
+                    </select>
+                    <button onclick="askAiCoach()" class="btn-primary" style="width: auto; padding: 0 24px; background-color: #8b5cf6; margin-top: 0;">Consult AI</button>
+                </div>
+                <div id="aiResponseBox" style="display: none; margin-top: 16px; padding: 16px; background-color: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; font-size: 13px; line-height: 1.6; color: #4c1d95;"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/habits.js"></script>
+</body>
+</html>

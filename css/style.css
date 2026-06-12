@@ -1,0 +1,213 @@
+/* ==========================================================================
+   PREMIUM SAAS AUTH TERMINAL CONTAINER BACKGROUND DESIGN
+========================================================================== */
+.auth-body {
+    background-color: #0b0f19;
+    background-image: 
+        radial-gradient(at 50% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.auth-card {
+    background: rgba(23, 31, 50, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.auth-card h1 { color: #ffffff; font-size: 28px; font-weight: 800; margin: 0 0 8px 0; letter-spacing: -0.02em; }
+.auth-card p { color: #94a3b8; font-size: 14px; margin: 0 0 28px 0; }
+.auth-input-group { text-align: left; margin-bottom: 20px; }
+
+.auth-card label {
+    display: block; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
+}
+
+.auth-card input {
+    width: 100%; padding: 14px 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px; color: #ffffff; font-size: 15px; transition: all 0.2s ease; box-sizing: border-box;
+}
+
+.auth-card input:focus {
+    border-color: #2563eb; background: rgba(15, 23, 42, 0.8); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15); outline: none;
+}
+
+.auth-footer-link {
+    display: inline-block; margin-top: 24px; font-size: 13px; color: #3b82f6; text-decoration: none; font-weight: 600; transition: color 0.15s ease;
+}
+.auth-footer-link:hover { color: #60a5fa; text-decoration: underline; }
+
+/* ==========================================================================
+   CORE DASHBOARD INFRASTRUCTURE THEME SIGNALS
+========================================================================== */
+:root {
+    --bg-main: #f8fafc;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --border: rgba(226, 232, 240, 0.9);
+}
+
+body.dashboard-body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    margin: 0; padding: 0; min-height: 100vh;
+    color: var(--text-main); background-color: var(--bg-main);
+}
+
+.command-center-banner {
+    background: #0f172a; color: #fff; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1e293b;
+}
+
+.command-center-banner h2 { margin: 0; font-size: 16px; letter-spacing: 0.1em; color: #94a3b8; }
+.command-center-banner p { margin: 4px 0 0 0; font-size: 11px; font-family: monospace; color: #64748b; }
+
+.banner-metrics-grid { display: flex; gap: 24px; }
+.banner-metric-box {
+    background: #1e293b; border: 1px solid #334155; border-radius: 8px;
+    padding: 8px 16px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; color: #fff;
+}
+button.banner-metric-box { border: 1px solid #334155; cursor: pointer; transition: background 0.2s; }
+button.banner-metric-box:hover { background: #273549; }
+
+.bm-label { font-size: 10px; text-transform: uppercase; color: #64748b; font-weight: 700; }
+.bm-value { font-size: 16px; font-weight: 800; margin-top: 2px; }
+.text-primary { color: #818cf8 !important; }
+.text-success { color: var(--success) !important; }
+.text-danger { color: var(--danger) !important; }
+.text-warning { color: var(--warning) !important; }
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95); display: flex;
+    justify-content: space-between; align-items: center; padding: 12px 40px; border-bottom: 1px solid #e2e8f0;
+}
+
+.logo { font-size: 18px; font-weight: 800; color: var(--text-main); }
+.logout-button {
+    background: transparent; border: 1px solid #e2e8f0; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 13px; transition: all 0.15s ease;
+}
+.logout-button:hover { color: var(--danger); border-color: var(--danger); }
+
+/* --- Forms UI Display Rules --- */
+.field-label {
+    display: block; text-align: left; font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-top: 14px; margin-bottom: 4px;
+}
+input, select {
+    width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; font-size: 14px; background-color: #fff;
+}
+.btn-primary {
+    width: 100%; padding: 12px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.dashboard-grid { display: grid; grid-template-columns: 360px 1fr; gap: 32px; max-width: 1400px; margin: 30px auto; padding: 0 24px; }
+.control-panel { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; align-self: start; }
+.panel-card { background-color: #fff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); box-sizing: border-box; }
+.panel-card h3 { margin: 0 0 16px 0; font-size: 13px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; }
+
+.habit-stream { display: flex; flex-direction: column; }
+.habit-stream h2 { margin: 0 0 20px 0; font-size: 20px; font-weight: 700; }
+.habit-card-item { background-color: #fff; border: 1px solid #cbd5e1; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); box-sizing: border-box; margin-bottom: 24px; }
+
+/* --- Drop Zones Tracker Elements --- */
+.time-slot { flex: 1; min-width: 130px; background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px; font-size: 11px; }
+.time-slot strong { display: block; margin-bottom: 4px; color: var(--primary); }
+.slot-dropzone { color: var(--text-muted); background: #f8fafc; border: 1px dashed #cbd5e1; padding: 8px; border-radius: 6px; text-align: center; font-size: 11px; min-height: 18px; }
+
+/* ==========================================================================
+   HIGH-DENSITY CONDENSED CALENDAR COMPONENT MATRIX SPECIFICATIONS
+========================================================================== */
+.calendar-month-matrix {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    padding-top: 10px !important;
+    border-top: 1px dashed #cbd5e1 !important;
+    box-sizing: border-box !important;
+}
+
+.calendar-day-cell {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 4px 2px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
+}
+
+.calendar-day-cell:hover { background: #f1f5f9 !important; }
+
+/* Dynamic Weekday Header Letter Layout Priority Override */
+.day-txt-header {
+    display: block !important;
+    color: #475569 !important; /* Slate black charcoal */
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    margin: 0 0 2px 0 !important;
+    text-transform: uppercase !important;
+}
+
+/* Dynamic Numerical Date Label Layout Priority Override */
+.date-txt-num {
+    display: block !important;
+    color: #0f172a !important; /* Solid high-contrast black code block */
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    margin: 0 0 4px 0 !important;
+}
+
+.calendar-node-indicator {
+    display: block !important;
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: transform 0.1s ease;
+    box-sizing: border-box !important;
+}
+.calendar-node-indicator:hover { transform: scale(1.2); }
+
+/* Color State Engine Fills */
+.day-node-empty { background-color: #cbd5e1 !important; border: 1px solid #94a3b8 !important; }
+.day-node-tiny { background-color: #22c55e !important; border: 1px solid #16a34a !important; }
+.day-node-standard { background-color: #6366f1 !important; border: 1px solid #4f46e5 !important; }
+.day-node-advanced { background-color: #b45309 !important; border: 1px solid #78350f !important; }
+.day-node-friction { background-color: #ef4444 !important; border: 1px solid #dc2626 !important; }
+
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-card { background: white; padding: 28px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); box-sizing: border-box; }
+.modal-card h3 { margin: 0 0 8px 0; }
+.modal-card p { margin: 0 0 16px 0; font-size: 14px; color: var(--text-muted); }
+
+@media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; gap: 24px; } .control-panel { order: 2; position: static; } .habit-stream { order: 1; } }
+@media (max-width: 768px) { .calendar-month-matrix { grid-template-columns: repeat(4, 1fr) !important; } .time-slot { min-width: 100%; } }
